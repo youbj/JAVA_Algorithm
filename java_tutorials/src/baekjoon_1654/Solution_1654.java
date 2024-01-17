@@ -4,40 +4,41 @@ import java.util.*;
 import java.io.*;
 
 public class Solution_1654 {
-	public static int []arr;
+	
 	public static void main(String[]arg) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st=new StringTokenizer(br.readLine());
 		int k,n;
 		k=Integer.parseInt(st.nextToken());
 		n=Integer.parseInt(st.nextToken());
-		arr=new int[k];
-		long sum=0;
-		int min=Integer.MAX_VALUE;
+		int [] arr=new int[k];
+		long max=0;
 		
 		for(int i=0;i<k;i++) {
 			int leng=Integer.parseInt(br.readLine());
 			arr[i]=leng;
-			sum+=leng;
-			if(min>leng)
-				min=leng;
+			if(max<leng)
+				max=leng;
 		}
-		int avg=(int)Math.min(sum/n, Integer.MAX_VALUE);
-		int check=Math.min(avg, min);
-		boolean cond=true;
-		while(cond) {
-			int count=0;
+		max++;
+		long mid=0;
+		long min=0;
+		
+		while(min<max) {
+			
+			mid=(max+min)/2;
+			
+			long count=0;			
 			for(int a:arr) {
-				count+=a/check;
-				if(count>=n) {
-					cond=false;
-					count++;
-					break;
-				}
+				count+=a/mid;
 			}
-			check--;
+			
+			if(count<n)
+				max=mid;
+			else
+				min=mid+1;
 		}
-		System.out.println(check);
+		System.out.println(min-1);
 		
 		
 	}
