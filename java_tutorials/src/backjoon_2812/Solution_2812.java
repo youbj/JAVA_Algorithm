@@ -2,22 +2,21 @@ package backjoon_2812;
 
 import java.util.*;
 import java.io.*;
-
+import java.io.*;
 public class Solution_2812 {
 	
-	public static void main(String []args) {
-		Scanner sc= new Scanner(System.in);
+	public static void main(String []args) throws IOException {
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st=new StringTokenizer(br.readLine());
 		int n,k;
-		n=sc.nextInt(); k=sc.nextInt();
+		n=Integer.parseInt(st.nextToken()); 
+		k=Integer.parseInt(st.nextToken());
 		
-		int[]arr=new int[n];
-		String str="1";
-		String str1="2";
-
-//		for(int i=0;i<n;i++) {
-//			int a=sc.nextInt();
-//			arr[i]=a;
-//		}
+		int index=0;
+		String str=br.readLine();
+		while(k!=0) {
+			
+		}
 		
 		
 		
