@@ -24,11 +24,9 @@ public class Solution_2003 {
 		m=Integer.parseInt(st.nextToken());
 
 		st=new StringTokenizer(br.readLine());
-
-		
+	
 
 		int[] arr=new int[n];
-
 	
 
 		for(int i=0;i<n;i++) {
