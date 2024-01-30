@@ -1,10 +1,20 @@
 import java.util.Scanner;
+ /**
+ * @author 유병주 
+ * @date 0130
+ * @link https://www.acmicpc.net/submit/15649
+ * @keyword_solution  재귀를 통한 입력
+ * @input N, M, 깊이를 지정하여 재귀관리
+ * @output Stringbuilder를 통해 출력시간 관리
+ * @time_complex  
+ * @perf 
+ */ 
  
 public class Main {
  
 	public static int[] arr;
 	public static boolean[] visit;
- 
+	static StringBuilder sb= new StringBuilder();
 	public static void main(String[] args) {
  
 		Scanner in = new Scanner(System.in);
@@ -15,15 +25,15 @@ public class Main {
 		arr = new int[M];
 		visit = new boolean[N];
 		dfs(N, M, 0);
- 
+		System.out.println(sb.toString());
 	}
  
 	public static void dfs(int N, int M, int depth) {
 		if (depth == M) {
-			for (int val : arr) {
-				System.out.print(val + " ");
+			for (int num : arr) {
+				sb.append(num + " ");
 			}
-			System.out.println();
+			sb.append("\n");
 			return;
 		}
  
