@@ -6,23 +6,24 @@ import java.util.StringTokenizer;
 /**
  * @author 유병주 
  * @date 01.31
- * @link https://www.acmicpc.net/problem/11659
+ * @link https://www.acmicpc.net/problem/11660
  * @keyword_solution  
- * N개의 수를 담는 arr가 있을 때, 얼마만큼 효율적으로 합을 구하나
+ * N*N 개의 수를 담는 arr가 있을 때, 얼마만큼 효율적으로 합을 구하나
  * @input 
- * arr의 길이 N, 명령의 수 M일 때, N과M은 100,000보다 작거나 같다.
- * arr의 요소는 1000보다 작거나 같다.
- * 즉 sum의 최대는 100,000,000 = 억 int가능
-
+ * 누적합 형태로 값을 저장해야 하는데 저장과정에서 
+ * 단순 x-1의 값과 y-1의 값을 더하면 x-1,y-1까지 중복이 발생한다
+ * 그렇기 때문에 새로운 buf배열을 생성해 같은 x행의 값을 따로 저장해
+ * y의 값에 더해준다
  * @output   
  * 하나의 명령에 한번의 출력
  * @time_complex  O(n)
- * @perf 59304	1460
+ * @perf 128824	1732
  */
 
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringTokenizer st;
+	static StringBuilder sb = new StringBuilder();
 	static int [][]arr;
 	public static void main(String[] args) throws IOException {
 		st=new StringTokenizer(br.readLine());
@@ -53,7 +54,8 @@ public class Main {
 			
 			sum-=sub;
 			
-			System.out.println(sum);
-		}	
+			sb.append(sum+"\n");
+		}
+		System.out.println(sb.toString());
 	}
 }
