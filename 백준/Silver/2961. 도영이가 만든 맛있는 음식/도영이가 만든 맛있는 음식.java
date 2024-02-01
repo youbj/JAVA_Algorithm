@@ -3,7 +3,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
-
+/**
+ * @author 유병주 
+ * @date 0201
+ * @link https://www.acmicpc.net/problem/2961
+ * @keyword_solution  
+ * 조합을 사용하여 계산
+ * @input 
+ * 1번줄에 재료의 갯수와 
+ * 2번줄부터 재로의 개수만큼
+ * 재료당 신맛과 쓴맛을 표현한 숫자가 띄어쓰기로 제공 
+ * @output   
+ * 조합을 통해 만들은 최솟값을 출력
+ * @time_complex  
+ * O(2^N)
+ * @perf 
+ * 14344	124
+ */
 public class Main {
 	static BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
 	static StringTokenizer st;
