@@ -7,20 +7,19 @@ import java.util.*;
  * @input int형 정수가 들어가기 때문에 신경써야할 부분이 없다.
  * @output   queue를 사용하여 마지막남은 값 출력
  * @time_complex  O(N)
- * @perf 
+ * @perf 26032	284
  */
 
 public class Main {
-	static Queue<Integer> que=new ArrayDeque<>();
-	
 	public static void main(String[] args) {
+		Queue<Integer> que=new ArrayDeque<>();
 		Scanner sc=new Scanner(System.in);
 		int n=sc.nextInt();
-        if(n==1){
+		if(n==1){
             System.out.println(1);
             return;
         }
-		
+			
 		for(int i=1;i<=n;i++) {
 			if(i%2==0)
 				que.add(i);
