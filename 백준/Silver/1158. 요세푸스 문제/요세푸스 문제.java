@@ -10,7 +10,9 @@ import java.util.Scanner;
  * @input 5000이하의 K와 N
  * @output  값이 도출될 때마다 수정해야 하므로 StringBuilder를 사용
  * @time_complex  O(N^2)
- * @perf 298328	664
+ * @perf LinkedList: 298328	664 
+ * ArrayDeque 19616	396
+ * 
  */
 
 public class Main {
