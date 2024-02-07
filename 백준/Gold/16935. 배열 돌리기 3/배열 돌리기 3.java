@@ -2,6 +2,22 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+/**
+ * @author	유병주 
+ * @date 	02.07
+ * @link	https://www.acmicpc.net/problem/16935
+ * @keyword_solution  
+ * 배열을 돌릴때 n과 m값이 변하는 것을 잘 수정해 주어야한다.
+ * @input 
+ * N과 M R, 배열은 입력에 문제가 없으며 완성된 배열을 가지고 수정을 진행해야 한다.
+ * @output   
+ * 6개의 명령이 있으므로 6개의 함수를 생성해 진행해 StringBuilder를 통해 출력
+ * @time_complex  
+ * O(n^2)
+ * @perf 
+ * 82040	392
+ */
+
 public class Main {
     static StringBuffer sb = new StringBuffer();
     static int n, m;
