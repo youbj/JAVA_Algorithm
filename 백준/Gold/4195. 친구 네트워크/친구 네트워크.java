@@ -27,10 +27,10 @@ public class Main {
 				String fr2 = st.nextToken();
 				
 				int ans = Union(getIdx(fr1), getIdx(fr2));
-				System.out.println(ans);
+				sb.append(ans).append("\n");
 			}
 		}
-		
+		System.out.println(sb.toString());
 	}
 	
 	public static int getIdx(String str) {
