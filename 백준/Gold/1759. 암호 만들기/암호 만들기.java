@@ -14,10 +14,15 @@ import java.util.StringTokenizer;
  * 1. 그냥 조합 다 만들고 그 중 모음을 포함하는 거 출력
  * 2. UnionFind 구현
  * -> 모음을 루트로 두고 유니온 파인드? 결국 조합인데? 
- * @input 
- * @output   
+ * @input
+ * 
+ * @output
+ * 결국 조합으로 구현했지만 UnionFind를 사용한다면   모음을 루트로 잡고 모든 경우의 수를 1, 2 크기의 
+ * 집합으로 만든 후 조합하면 될 듯하다
  * @time_complex  
+ * O(2^n)
  * @perf 
+ * 14304	132	
  */
 
 
