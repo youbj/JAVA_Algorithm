@@ -1,108 +1,191 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
-class Point {
-	public int y, x;
-	public int horseCount;		// 현재 지점까지 말처럼 동작한 횟수
-	public int totalCount;		// 현재 지점까지 전체 동작 횟수 (말 + 원숭이)
+/**
+ * @author 	유병주
+ * @date 	02.28
+ * @link	https://www.acmicpc.net/problem/1600
+ * @keyword_solution  
+ * 1. dfs를 통한 해결
+ * 
+ * 2. bfs를 통한 해결 
+ * @input 
+ * 1. dfs를 통한 해결
+ * 
+ * 2. bfs를 통한 해결
+ * 2.0) visited 처리 없이 진행
+ *  -> 예제 2번 무한 루프 
+ * 2.1) visited 처리 없이 map에 move 횟수를 비교하면서 1회 차이나면 안감
+ *  -> 말처럼 이동을 한 곳도 1회 적기 때문에 이동하지 않아  
+ *  2
+	10 2
+	0 0 1 0 0 1 0 0 1 0
+	0 0 1 1 0 0 0 0 1 0 해당 예제에서 10이 아닌 -1이 출력된다.
+ * 2.2) visited 처리 
+ *  -> 말처럼 이동을 한 곳을 방문처리하여 해당 구역으로 이동하지 않는다.
+ * 2.3) map에 무엇이 방문했나 처리
+ *  -> static final int 를 사용한 상수 표현을 사용하여 지나간 구역을 처리했으나 불가
+ * 2.4) boolean의 3차원 배열
+ *  -> x 좌표와 y좌표, 남은 말 움직임을 하나의 상태로 취급
+ *  -> visited를 사용하는 이유는 좌표값이 중요한 것이 아니라 상태를 나타내는 변수를 처리하기 위함이다.
+ * @output 반례 목록
+1
+1 1
+0
+정답: 0
 
-	public Point(int y, int x, int horseCount, int totalCount) {
-		this.x = x;
-		this.y = y;
-		this.horseCount = horseCount;
-		this.totalCount = totalCount;
-	}
-}
+2
+10 2
+0 0 1 0 0 1 0 0 1 0
+0 0 1 1 0 0 0 0 1 0
+정답: 10
+	
+1
+5 5
+0 1 1 0 1
+0 0 1 0 1
+0 1 0 1 1
+0 1 0 1 0
+1 1 0 1 0
+정답: -1	
+
+2
+5 3
+0 0 0 0 0
+1 0 1 1 0
+1 0 1 1 0
+정답: 4	
+
+5
+6 6
+0 0 0 0 0 1 
+0 0 0 1 0 1 
+0 1 0 0 0 1 
+0 1 0 0 1 0 
+0 0 0 0 0 1 
+1 0 0 0 1 0
+정답: 4
+
+1
+4 4
+0 0 0 0
+0 0 0 0
+0 0 1 1
+0 0 1 0
+정답: 4
+ * @time_complex  
+ * 
+ * @perf 
+ * 301580	724
+ */
 
 public class Main {
-	static int k;		// 원숭이가 말 처럼 동작 가능한 최대 횟수
-	static int h, w;	// h x w 행렬
-	static int[][] map;
-	static int minCount = Integer.MAX_VALUE;	// 원숭이의 최소 동작 횟수
-
-	static Queue<Point> queue = new LinkedList<>();
-	// check[y][x][k]: [y, x] 위치를 말 처럼 k 번 동작하여 방문 여부 확인
-	static boolean[][][] check;
-	static int[] dy = { -1, 1, 0, 0 };	// 원숭이 이동: 상하좌우
-	static int[] dx = { 0, 0, -1, 1 };
-	static int[] hdy = { -2, -2, -1, -1, +1, +1, +2, +2 };	// 말 이동
-	static int[] hdx = { -1, +1, -2, +2, -2, +2, -1, +1 };
-
-	static void bfs() {
-		while (!queue.isEmpty()) {
-			Point current = queue.remove();
-			int horseCount = current.horseCount;
-			int totalCount = current.totalCount;
-
-			if (current.y == h - 1 && current.x == w - 1) {
-				minCount = current.totalCount;
-				return;
-			}
-
-			// 원숭이로 이동하는 경우
-			for (int i = 0; i < 4; i++) {
-				int ny = current.y + dy[i];
-				int nx = current.x + dx[i];
-
-				if (ny < 0 || ny >= h || nx < 0 || nx >= w)	// 다음 지점이 범위 밖인 경우
-					continue;
-
-				// 인접한 지점이 평지이고, 아직 방문 안한 경우
-				if (map[ny][nx] == 0 && !check[ny][nx][horseCount]) {
-					check[ny][nx][horseCount] = true;
-					queue.add(new Point(
-							ny, nx, horseCount, totalCount + 1
-					));
-				}
-			}
-
-			// 말 처럼 동작하여 이동하는 경우
-			if (horseCount < k) {
-				for (int i = 0; i < 8; i++) {
-					int hy = current.y + hdy[i];
-					int hx = current.x + hdx[i];
-
-					if (hy < 0 || hy >= h || hx < 0 || hx >= w)	// 다음 지점이 범위 밖인 경우
-						continue;
-
-					// 인접한 지점이 평지이고, 아직 방문 안한 경우
-					if (map[hy][hx] == 0 && !check[hy][hx][horseCount + 1]) {
-						check[hy][hx][horseCount + 1] = true;
-						queue.add(new Point(
-								hy, hx, horseCount + 1, totalCount + 1
-						));
-					}
-				}
-			}
-		}
-	}
-
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(
-				new InputStreamReader(System.in)
-		);
-		StringTokenizer st;
-
-		k = Integer.parseInt(br.readLine());
+	static StringBuilder sb = new StringBuilder();
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringTokenizer st;
+	
+	static int jumpNum; //k
+	static int row,col;
+	
+	static int [][] map;
+	static boolean[][][] visited;
+	
+	static int [] dr = {-1,1,0,0};
+	static int [] dc = {0,0,-1,1};
+	static int [] jumpr = {-2,-2,-1,1,2,2,1,-1};
+	static int [] jumpc = {-1,1,2,2,1,-1,-2,-2};
+	
+	static final int HORSE = 9;
+	static final int MONKEY = 8;
+	
+	
+	public static void main(String[] args) throws Exception{
+		jumpNum = Integer.parseInt(br.readLine());
+		
 		st = new StringTokenizer(br.readLine());
-		w = Integer.parseInt(st.nextToken());
-		h = Integer.parseInt(st.nextToken());
-		// check[][][0] ~ [][][k] 사용: 말 처럼 동작 횟수 0번 ~ k 번까지
-		check = new boolean[h][w][k + 1];
-		map = new int[h][w];
-		for (int i = 0; i < h; i++) {
+		col = Integer.parseInt(st.nextToken());
+		row = Integer.parseInt(st.nextToken());
+		
+		map = new int[row][col];
+		
+		for(int r=0;r<row;r++) {
 			st = new StringTokenizer(br.readLine());
-			for (int j = 0; j < w; j++)
-				map[i][j] = Integer.parseInt(st.nextToken());
+			for(int c=0;c<col;c++) {
+				map[r][c] = Integer.parseInt(st.nextToken());
+			}
 		}
+		
+		monkeyMove();
+	}
+	
+	public static void monkeyMove() {
+		Queue<Point> que= new ArrayDeque<>();
+		visited = new boolean[row][col][jumpNum+1];
+		
+		que.offer(new Point(0,0,0,jumpNum));		
+		visited[0][0][0] = true;
+		
+		int answer = -1;
+		
+		while(!que.isEmpty()) {
+			Point now = que.poll();
 
-		check[0][0][0] = true;
-		queue.add(new Point(0, 0, 0, 0));
-		bfs();
+			if(now.r==row-1&&now.c==col-1) {
+				answer = now.move;
+				break;
+			}
+			
+			for (int i = 0; i < 4; i++) {
+				int nr = now.r+dr[i];
+				int nc = now.c+dc[i];
+			
+				if(isNot(nr,nc)) continue;	
+				
+				if(visited[nr][nc][now.jumpcnt]) continue;
+				visited[nr][nc][now.jumpcnt] =true;
+						
+				que.offer(new Point(nr,nc,now.move+1,now.jumpcnt));
+			}
+			
+			if(now.jumpcnt==0) continue;
 
-		if (minCount != Integer.MAX_VALUE)
-			System.out.println(minCount);
-		else
-			System.out.println(-1);
+			for(int i = 0; i < 8; i++) {
+				int nr = now.r+jumpr[i];
+				int nc = now.c+jumpc[i];
+				
+				if(isNot(nr,nc)) continue;
+				
+				if(visited[nr][nc][now.jumpcnt-1]) continue;
+				visited[nr][nc][now.jumpcnt-1] =true;
+				
+				que.offer(new Point(nr,nc,now.move+1,now.jumpcnt-1));
+			}			
+			
+		}
+		
+		System.out.println(answer);
+		return;
+	}
+	
+	public static boolean isNot(int r,int c)  {
+		return r<0 || r>=row || c<0 || c>=col || map[r][c] == 1;
+	}
+	
+	public static class Point{
+		int r;
+		int c;
+		int move;
+		int jumpcnt;
+		
+		public Point(int r, int c, int move, int jumpcnt) {
+			this.r = r;
+			this.c = c;
+			this.move = move;
+			this.jumpcnt = jumpcnt;
+		}
 	}
 }
