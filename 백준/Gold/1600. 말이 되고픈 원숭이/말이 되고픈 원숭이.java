@@ -10,12 +10,10 @@ import java.util.StringTokenizer;
  * @date 	02.28
  * @link	https://www.acmicpc.net/problem/1600
  * @keyword_solution  
- * 1. dfs를 통한 해결
- * 
- * 2. bfs를 통한 해결 
+ 
+ https://beaded-dragon-49d.notion.site/7cde8f34882346bd96d5e2fcd5f00665?pvs=4
+ 
  * @input 
- * 1. dfs를 통한 해결
- * 
  * 2. bfs를 통한 해결
  * 2.0) visited 처리 없이 진행
  *  -> 예제 2번 무한 루프 
@@ -32,57 +30,11 @@ import java.util.StringTokenizer;
  * 2.4) boolean의 3차원 배열
  *  -> x 좌표와 y좌표, 남은 말 움직임을 하나의 상태로 취급
  *  -> visited를 사용하는 이유는 좌표값이 중요한 것이 아니라 상태를 나타내는 변수를 처리하기 위함이다.
- * @output 반례 목록
-1
-1 1
-0
-정답: 0
-
-2
-10 2
-0 0 1 0 0 1 0 0 1 0
-0 0 1 1 0 0 0 0 1 0
-정답: 10
-	
-1
-5 5
-0 1 1 0 1
-0 0 1 0 1
-0 1 0 1 1
-0 1 0 1 0
-1 1 0 1 0
-정답: -1	
-
-2
-5 3
-0 0 0 0 0
-1 0 1 1 0
-1 0 1 1 0
-정답: 4	
-
-5
-6 6
-0 0 0 0 0 1 
-0 0 0 1 0 1 
-0 1 0 0 0 1 
-0 1 0 0 1 0 
-0 0 0 0 0 1 
-1 0 0 0 1 0
-정답: 4
-
-1
-4 4
-0 0 0 0
-0 0 0 0
-0 0 1 1
-0 0 1 0
-정답: 4
+ * @output 
  * @time_complex  
- * 
  * @perf 
- * 301580	724
+ * 59572	484
  */
-
 public class Main {
 	static StringBuilder sb = new StringBuilder();
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -98,9 +50,6 @@ public class Main {
 	static int [] dc = {0,0,-1,1};
 	static int [] jumpr = {-2,-2,-1,1,2,2,1,-1};
 	static int [] jumpc = {-1,1,2,2,1,-1,-2,-2};
-	
-	static final int HORSE = 9;
-	static final int MONKEY = 8;
 	
 	
 	public static void main(String[] args) throws Exception{
