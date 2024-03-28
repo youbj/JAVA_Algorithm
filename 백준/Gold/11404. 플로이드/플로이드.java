@@ -8,7 +8,6 @@ public class Main {
 
 	public static int node, edge;
 	public static int[][] graph;
-	public static int[][] answer;
 
 	public static final int INF = 100000000;
 
@@ -28,24 +27,23 @@ public class Main {
 			int end = Integer.parseInt(st.nextToken());
 			int weight = Integer.parseInt(st.nextToken());
 			graph[start][end] = Math.min(weight, graph[start][end]);
-		}
-		
+		}	
 		floyd();
-		
 		for(int i=1;i<=node;i++) {
 			for(int j=1;j<=node;j++) {
 				if(graph[i][j]==INF) {
-					System.out.print(0+" ");
+					sb.append(0).append(" ");
 				}
 				else {
-					System.out.print(graph[i][j]+" ");
+					sb.append(graph[i][j]).append(" ");
 				}
-			}System.out.println();
+			}
+			sb.append("\n");
 		}
+		System.out.println(sb.toString());
 	}
 
 	public static void floyd() {
-
 		for (int k = 1; k <= node; k++) {
 			for (int i = 1; i <= node; i++) {
 				for (int j = 1; j <= node; j++) {
@@ -54,5 +52,4 @@ public class Main {
 			}
 		}
 	}
-
 }
