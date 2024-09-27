@@ -9,18 +9,18 @@ public class Main {
         int len = Integer.parseInt(br.readLine());
         String str = br.readLine();
 
-        String buf = "";
-
-        for (int i = 0; i < size; i++) {
-            buf += "IO";
-        }
-        buf += "I";
-
         int answer = 0;
-        for (int i = 0; i <= len - buf.length(); i++) {
-            String std = str.substring(i, i + buf.length());
-            if (buf.equals(std)) {
-                answer++;
+        int cnt = 0;
+        for (int i = 1; i < len - 1; i++) {
+            if (str.charAt(i - 1) == 'I' && str.charAt(i) == 'O' && str.charAt(i + 1) == 'I') {
+                cnt++;
+                if (cnt == size) {
+                    answer++;
+                    cnt--;
+                }
+                i++;
+            } else {
+                cnt = 0;
             }
         }
         System.out.println(answer);
