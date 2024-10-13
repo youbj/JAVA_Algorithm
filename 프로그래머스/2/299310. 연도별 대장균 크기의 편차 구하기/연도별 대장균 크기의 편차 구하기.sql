@@ -4,7 +4,7 @@ SELECT
     ID
 FROM 
     ECOLI_DATA A
-LEFT Join
+Join
     (select 
         YEAR(DIFFERENTIATION_DATE) as YEAR,
         MAX(SIZE_OF_COLONY) as MAX_SIZE_OF_COLONY
